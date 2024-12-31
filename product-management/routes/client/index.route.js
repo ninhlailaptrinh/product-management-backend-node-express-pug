@@ -1,9 +1,9 @@
-module.exports = (app) => {
-  app.get("/", (req, res) => {
-    res.render("client/pages/home/index");
-  });
+const homeRoutes = require("./home.route");
+const productRoutes = require("./product.route");
 
-  app.get("/product", (req, res) => {
-    res.render("client/pages/products/index");
-  });
+module.exports = (app) => {
+
+  app.use("/", homeRoutes);
+
+  app.use("/products", productRoutes);
 };
