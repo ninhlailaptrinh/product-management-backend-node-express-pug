@@ -1,6 +1,21 @@
-doctype html 
-html 
-  head 
-    title Trang danh sách sản phẩm
-  body 
-    h1 Trang danh sách sản phẩm
+extends ../../layout/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.my-3 
+    .row 
+      .col-12 
+        +box-head("Danh sách sản phẩm")
+
+    .row 
+      each item in products
+        .col-4.mb-3 
+          .product-item 
+            .inner-image 
+              img(src=item.thumbnail, alt=item.title)
+            .inner-content 
+              h3.inner-title= item.title
+              .inner-price
+                span.inner-price-new 80$
+                span.inner-price-old 100$
+                span.inner-price-discount -20%
