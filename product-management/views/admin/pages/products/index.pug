@@ -21,7 +21,10 @@ block main
           td #{item.title} 
           td  #{item.price}
           td 
-            a(href="#" class="badge badge-success ") Hoạt động
+            if(item.status ==  "active")
+              a(href="#" class="badge badge-success ") Hoạt động
+            else
+              a(href="#" class="badge badge-danger ") Dừng hoạt động
           td 
             a(href="#" class="btn btn-warning btn-sm") Sửa 
             a(href="#" class="btn btn-danger btn-sm ml-1") Xóa
