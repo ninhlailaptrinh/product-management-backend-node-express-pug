@@ -1,1 +1,1 @@
-console.log("OK");
+alert("Đang phát triển !");
