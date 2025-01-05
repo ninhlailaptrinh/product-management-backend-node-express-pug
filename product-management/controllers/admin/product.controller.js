@@ -1,13 +1,8 @@
 const Product = require("../../models/product.model");
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
-<<<<<<< HEAD
-const paginationHelper = require("../../helpers/pagination");
-||||||| parent of 9684e7a (Cập nhập chức năng thay đổi trạng thái hoạt động)
-=======
 const paginationHelper = require("../../helpers/pagination");
 const { request } = require("express");
->>>>>>> 9684e7a (Cập nhập chức năng thay đổi trạng thái hoạt động)
 
 module.exports.index = async (req, res) => {
   // Lấy trạng thái lọc từ helper
