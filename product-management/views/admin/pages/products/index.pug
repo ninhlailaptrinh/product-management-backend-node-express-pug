@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
+include ../../mixins/pagination.pug
 
 block main
   h1 Danh sách sản phẩm 
@@ -36,13 +37,25 @@ block main
               td #{item.title} 
               td  #{item.price}
               td 
-                if(item.status ==  "active")
-                  a(href="#" class="badge badge-success ") Hoạt động
+                if(item.status == "active")
+                  button(
+                    href="javascript:;"
+                    button-change-status
+                    class="badge badge-success "
+                    data-status="active"
+                    data-id=item.id
+                  ) Hoạt động
                 else
-                  a(href="#" class="badge badge-danger ") Dừng hoạt động
+                  button(
+                    button-change-status
+                    class="badge badge-danger"
+                    data-status="inactive"
+                    data-id=item.id
+                  ) Dừng hoạt động
               td 
                 a(href="#" class="btn btn-warning btn-sm") Sửa 
                 a(href="#" class="btn btn-danger btn-sm ml-1") Xóa
+<<<<<<< HEAD
 
 
   nav(aria-label="Page navigation example")
@@ -56,3 +69,20 @@ block main
 
       li(class=`page-item ${pagination.currentPage === pagination.totalPage ? 'disabled' : ''}`)
         a(class="page-link" href=`?page=${pagination.currentPage + 1}`) Kế tiếp
+||||||| parent of 9684e7a (Cập nhập chức năng thay đổi trạng thái hoạt động)
+=======
+  
+  +pagination(pagination)
+
+  form(
+    action=""
+    method="POST"
+    id="form-change-status"
+    data-path=`${prefixAdmin}/products/change-status`
+    style="display: none;"
+  )
+    input(type="hidden" name="status" id="input-status")
+    input(type="hidden" name="id" id="input-id")
+
+  script(src="/admin/js/product.js")
+>>>>>>> 9684e7a (Cập nhập chức năng thay đổi trạng thái hoạt động)

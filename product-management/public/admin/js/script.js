@@ -1,5 +1,4 @@
 // Button status
-
 const buttonStatus = document.querySelectorAll("[button-status]");
 if (buttonStatus.length > 0) {
   buttonStatus.forEach((button) => {
