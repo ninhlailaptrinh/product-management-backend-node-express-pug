@@ -1,5 +1,5 @@
 module.exports = (query) => {
-  let filterStatus = [
+  const filterStatus = [
     {
       name: "Tất cả",
       status: "",
@@ -17,12 +17,12 @@ module.exports = (query) => {
     },
   ];
 
-  if (query.status) {
-    const index = filterStatus.findIndex((item) => item.status == query.status);
-    filterStatus[index].class = "active";
-  } else {
-    const index = filterStatus.findIndex((item) => item.status == "");
-    filterStatus[index].class = "active";
+  // Kiểm tra và đánh dấu trạng thái hiện tại
+  const currentStatus = query.status || ""; // Nếu không có trạng thái, mặc định là "Tất cả"
+  const activeItem = filterStatus.find((item) => item.status === currentStatus);
+  if (activeItem) {
+    activeItem.class = "active";
   }
+
   return filterStatus;
 };

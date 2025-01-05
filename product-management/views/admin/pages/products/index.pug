@@ -43,3 +43,16 @@ block main
               td 
                 a(href="#" class="btn btn-warning btn-sm") Sửa 
                 a(href="#" class="btn btn-danger btn-sm ml-1") Xóa
+
+
+  nav(aria-label="Page navigation example")
+    ul(class="pagination justify-content-center")
+      li(class=`page-item ${pagination.currentPage === 1 ? 'disabled' : ''}`)
+        a(class="page-link" href=`?page=${pagination.currentPage - 1}`) Trang trước
+
+      - for (let i = 1; i <= pagination.totalPage; i++)
+        li(class=`page-item ${i == pagination.currentPage ? 'active' : ''}`)
+          a(class="page-link" href=`?page=${i}`)= i
+
+      li(class=`page-item ${pagination.currentPage === pagination.totalPage ? 'disabled' : ''}`)
+        a(class="page-link" href=`?page=${pagination.currentPage + 1}`) Kế tiếp
