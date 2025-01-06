@@ -80,6 +80,15 @@ if (formChangeMulti) {
       "input[name='id']:checked",
     );
 
+    const typeChange = e.target.elements.type.value;
+    console.log(typeChange);
+    if (typeChange == "delete-all") {
+      const isConfirm = confirm("Yess ??");
+      if (!isConfirm) {
+        return;
+      }
+    }
+
     if (inputChecked.length > 0) {
       let ids = [];
       const inputIds = formChangeMulti.querySelector("input[name='ids']");
@@ -115,3 +124,5 @@ if (buttonsDelete.length > 0) {
     });
   });
 }
+
+// delete all
