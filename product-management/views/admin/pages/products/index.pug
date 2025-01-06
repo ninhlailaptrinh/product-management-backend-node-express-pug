@@ -67,7 +67,9 @@ block main
                   ) Dừng hoạt động
               td 
                 a(href="#" class="btn btn-warning btn-sm") Sửa 
-                a(href="#" class="btn btn-danger btn-sm ml-1") Xóa
+                a(href="#" class="btn btn-danger btn-sm ml-1 "
+                data-id = item.id button-delete
+              ) Xóa
 
   +pagination(pagination)
 
@@ -76,6 +78,17 @@ block main
     method="POST"
     id="form-change-status"
     data-path=`${prefixAdmin}/products/change-status`
+    style="display: none;"
+  )
+    input(type="hidden" name="status" id="input-status")
+    input(type="hidden" name="id" id="input-id")
+  
+
+  form(
+    action=""
+    method="POST"
+    id="form-delete-status"
+    data-path=`${prefixAdmin}/products/delete`
     style="display: none;"
   )
     input(type="hidden" name="status" id="input-status")
