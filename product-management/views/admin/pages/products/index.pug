@@ -73,5 +73,24 @@ block main
 
   +pagination(pagination)
 
+    form(
+    action=""
+    method="POST"
+    id="form-change-status"
+    data-path=`${prefixAdmin}/products/change-status`
+    style="display: none;"
+  )
+    input(type="hidden" name="status" id="input-status")
+    input(type="hidden" name="id" id="input-id")
+  
+  form(
+    action=""
+    method="POST"
+    id="form-delete-status"
+    data-path=`${prefixAdmin}/products/delete`
+    style="display: none;"
+  )
+    input(type="hidden" name="status" id="input-status")
+    input(type="hidden" name="id" id="input-id")
 
   script(src="/admin/js/product.js")
