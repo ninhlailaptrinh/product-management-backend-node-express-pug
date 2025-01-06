@@ -59,3 +59,23 @@ module.exports.changeStatus = async (req, res) => {
   await Product.updateOne({ _id: id }, { status: status });
   res.redirect("back"); // chuyển hướng lại về trang admin/products sau khi chuyển trạng thái
 };
+
+// Router change-Multi
+module.exports.changeMulti = async (req, res) => {
+  const type = req.body.type;
+  const ids = req.body.ids.split(", ");
+  console.log(type);
+  console.log(ids);
+  switch (type) {
+    case "active":
+      await Product.updateMany({ _id: { $in: ids } }, { status: "active" });
+      break;
+    case "inactive":
+      await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
+      break;
+
+    default:
+      break;
+  }
+  res.redirect("back");
+};

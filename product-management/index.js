@@ -3,7 +3,7 @@ const routeAdmin = require("./routes/admin/index.route.js");
 const routeClient = require("./routes/client/index.route.js");
 const database = require("./config/database");
 const systemConfig = require("./config/system");
-
+var bodyParser = require("body-parser");
 // Cấu hình port và mongodb
 require("dotenv").config();
 
@@ -23,6 +23,10 @@ app.use(express.static("public"));
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 app.use(methodOverride("_method"));
 
+// body-parser
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// connect
 database.connect();
 routeAdmin(app);
 routeClient(app);
