@@ -3,6 +3,7 @@ const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 const { request } = require("express");
+const systemConfig = require("../../config/system");
 
 module.exports.index = async (req, res) => {
   // Lấy trạng thái lọc từ helper
@@ -118,3 +119,38 @@ module.exports.deleteItem = async (req, res) => {
   req.flash("success", "Xóa sản phẩm thành công");
   res.redirect(req.get("Referrer") || "/");
 };
+
+// Hiển thị form tạo sản phẩm
+module.exports.createItem = async (req, res) => {
+  res.render("admin/pages/products/create", {
+    pageTitle: "Thêm sản phẩm",
+  });
+};
+
+// Xử lý tạo sản phẩm
+module.exports.createPost = async (req, res) => {
+  try {
+    // Chuyển đổi các trường số
+    req.body.price = parseInt(req.body.price, 10);
+    req.body.stock = parseInt(req.body.stock, 10);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage, 10);
+    // Xác định vị trí (position)
+    if (req.body.position == "") {
+      const countProducts = await Product.countDocuments();
+      req.body.position = countProducts + 1;
+    } else {
+      req.body.position = parseInt(req.body.position, 10);
+    }
+
+    // Lưu sản phẩm vào database
+    const product = new Product(req.body);
+    await product.save();
+
+    res.redirect(req.get("Referrer") || `${systemConfig.prefixAdmin}/products`);
+  } catch (error) {
+    console.error("Lỗi khi tạo sản phẩm:", error); // Thêm xử lý lỗi
+    res.status(500).send("Lỗi server"); // Trả về thông báo lỗi
+  }
+};
+
+// Sửa sản phẩm
