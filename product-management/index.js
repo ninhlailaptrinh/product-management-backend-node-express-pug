@@ -7,7 +7,6 @@ const bodyParser = require("body-parser");
 const flash = require("express-flash");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-
 // Cấu hình port và mongodb
 require("dotenv").config();
 

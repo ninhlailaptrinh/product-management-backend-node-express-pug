@@ -130,6 +130,7 @@ module.exports.createItem = async (req, res) => {
 // Xử lý tạo sản phẩm
 module.exports.createPost = async (req, res) => {
   try {
+    console.log(req.file);
     // Chuyển đổi các trường số
     req.body.price = parseInt(req.body.price, 10);
     req.body.stock = parseInt(req.body.stock, 10);
@@ -141,6 +142,8 @@ module.exports.createPost = async (req, res) => {
     } else {
       req.body.position = parseInt(req.body.position, 10);
     }
+
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
 
     // Lưu sản phẩm vào database
     const product = new Product(req.body);
