@@ -92,37 +92,28 @@ if (formChangeMulti) {
     if (inputChecked.length > 0) {
       let ids = [];
       const inputIds = formChangeMulti.querySelector("input[name='ids']");
+      
+      console.log("Type Change:", typeChange);
+      
       inputChecked.forEach((input) => {
         const id = input.value;
-        ids.push(id);
 
-        inputIds.value = ids.join(", ");
-
-        formChangeMulti.submit();
+        if (typeChange == "change-position") {
+          const position = input
+            .closest("tr")
+            .querySelector("input[name='position']").value;
+          console.log(`ID: ${id}, Position: ${position}`);
+          ids.push(`${id}-${position}`);
+        } else {
+          ids.push(id);
+        }
       });
+
+      console.log("Final IDs:", ids);
+      inputIds.value = ids.join(", ");
+      formChangeMulti.submit();
     } else {
       alert("Vui lòng chọn ít nhất 1 sản phẩm!");
     }
   });
 }
-
-// delete item
-
-const buttonsDelete = document.querySelectorAll("[button-delete]");
-if (buttonsDelete.length > 0) {
-  const formDeleteItem = document.querySelector("#form-delete-status");
-  const path = formDeleteItem.getAttribute("data-path");
-  buttonsDelete.forEach((button) => {
-    button.addEventListener("click", () => {
-      const isConfirm = confirm("DELETE");
-      if (isConfirm) {
-        const id = button.getAttribute("data-id");
-        const action = `${path}/${id}?_method=DELETE`;
-        formDeleteItem.action = action;
-        formDeleteItem.submit();
-      }
-    });
-  });
-}
-
-// delete all

@@ -39,6 +39,7 @@ module.exports.index = async (req, res) => {
 
   // Lấy danh sách sản phẩm với điều kiện tìm kiếm và phân trang
   const products = await Product.find(find)
+    .sort({ position: "desc" }) // Sắp xếp theo thứ tự tăng dần của trường position
     .skip(objectPagination.skip) // Bỏ qua các sản phẩm trước đó
     .limit(objectPagination.limitItem); // Giới hạn số sản phẩm trên mỗi trang
 
@@ -80,7 +81,13 @@ module.exports.changeMulti = async (req, res) => {
         { deleted: true, deleteAt: new Date() },
       );
       break;
-
+    case "change-position":
+      for (const item of ids) {
+        let [id, position] = item.split("-");
+        position = parseInt(position);
+        await Product.updateOne({ _id: id }, { position: position });
+      }
+      break;
     default:
       break;
   }
