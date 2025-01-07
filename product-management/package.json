@@ -27,6 +27,7 @@
     "express-validator": "^7.2.1",
     "method-override": "^3.0.0",
     "mongoose": "^8.9.3",
+    "mongoose-slug-updater": "^3.3.0",
     "pug": "^3.0.3"
   }
 }

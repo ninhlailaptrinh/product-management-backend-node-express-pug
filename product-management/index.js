@@ -32,14 +32,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // express-flash
 app.use(cookieParser("NINH-LAI-LAP-TRINH"));
-app.use(session({
-  secret: "NINH-LAI-LAP-TRINH",
-  resave: false,
-  saveUninitialized: true,
-  cookie: { 
-    maxAge: 60000
-  }
-}));
+app.use(
+  session({
+    secret: "NINH-LAI-LAP-TRINH",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 60000,
+    },
+  }),
+);
 app.use(flash());
 
 // connect

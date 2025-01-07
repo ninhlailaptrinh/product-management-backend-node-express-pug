@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const slug = require("mongoose-slug-generator");
+mongoose.plugin(slug);
 const productSchema = new mongoose.Schema(
   {
     title: String,
@@ -9,6 +11,7 @@ const productSchema = new mongoose.Schema(
     stock: Number,
     status: String,
     position: Number,
+    slug: { type: String, slug: "title", unique: true }, // unique: true => slug không được trùng
     deleted: {
       type: Boolean,
       default: false,
