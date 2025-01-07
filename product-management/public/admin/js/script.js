@@ -81,7 +81,6 @@ if (formChangeMulti) {
     );
 
     const typeChange = e.target.elements.type.value;
-    console.log(typeChange);
     if (typeChange == "delete-all") {
       const isConfirm = confirm("Yess ??");
       if (!isConfirm) {
@@ -92,9 +91,7 @@ if (formChangeMulti) {
     if (inputChecked.length > 0) {
       let ids = [];
       const inputIds = formChangeMulti.querySelector("input[name='ids']");
-      
-      console.log("Type Change:", typeChange);
-      
+
       inputChecked.forEach((input) => {
         const id = input.value;
 
@@ -102,14 +99,12 @@ if (formChangeMulti) {
           const position = input
             .closest("tr")
             .querySelector("input[name='position']").value;
-          console.log(`ID: ${id}, Position: ${position}`);
           ids.push(`${id}-${position}`);
         } else {
           ids.push(id);
         }
       });
 
-      console.log("Final IDs:", ids);
       inputIds.value = ids.join(", ");
       formChangeMulti.submit();
     } else {
@@ -117,3 +112,30 @@ if (formChangeMulti) {
     }
   });
 }
+
+// Show alert
+const showAlert = document.querySelectorAll("[show-alert]");
+if (showAlert.length > 0) {
+  showAlert.forEach((alert) => {
+    const time = parseInt(alert.getAttribute("data-time"));
+    setTimeout(() => {
+      alert.classList.add("alert-hidden");
+    }, time);
+
+    setTimeout(() => {
+      alert.remove();
+    }, time + 1000);
+  });
+}
+
+// click close alert
+
+const closeAlert = document.querySelectorAll("[close-alert]");
+if (closeAlert.length > 0) {
+  closeAlert.forEach((alert) => {
+    alert.addEventListener("click", () => {
+      alert.closest(".alert").remove();
+    });
+  });
+}
+
