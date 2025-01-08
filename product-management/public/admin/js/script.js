@@ -150,15 +150,17 @@ if (uploadImage) {
     const file = e.target.files[0];
     if (file) {
       uploadImagePreview.src = URL.createObjectURL(file);
+      uploadImagePreview.style.display = "block";
     }
   });
 }
 
+// click delete images
 const clearImagePreview = document.querySelector(".image-preview");
 if (clearImagePreview) {
   clearImagePreview.addEventListener("click", () => {
     uploadImagePreview.src = "";
-    uploadImagePreview.style.display = "none";
     uploadImageInput.value = "";
+    uploadImagePreview.style.display = "none";
   });
 }
