@@ -83,3 +83,15 @@
   font-weight: 500;
   margin-bottom: 20px; /* Thêm khoảng cách phía dưới */
 }
+
+.image-preview {
+  width: 150px;
+  height: auto;
+  margin-top: 15px;
+  border: 1xp solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+}
+.image-preview[src=""] {
+  display: none;
+}

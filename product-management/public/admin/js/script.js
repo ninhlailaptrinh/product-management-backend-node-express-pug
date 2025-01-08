@@ -139,3 +139,26 @@ if (closeAlert.length > 0) {
   });
 }
 
+// previewImage
+var uploadImage = document.querySelector("[upload-image]");
+if (uploadImage) {
+  var uploadImageInput = document.querySelector("[upload-image-input]");
+
+  var uploadImagePreview = document.querySelector("[upload-image-preview]");
+
+  uploadImageInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      uploadImagePreview.src = URL.createObjectURL(file);
+    }
+  });
+}
+
+const clearImagePreview = document.querySelector(".image-preview");
+if (uploadImagePreview.src === uploadImagePreview.src) {
+  clearImagePreview.addEventListener("click", () => {
+    uploadImagePreview.src = "";
+    uploadImagePreview.style.display = "none";
+    uploadImageInput.value = "";
+  });
+}
