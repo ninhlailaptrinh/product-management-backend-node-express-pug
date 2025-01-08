@@ -163,3 +163,57 @@ module.exports.createPost = async (req, res) => {
     res.status(500).redirect(req.get("Referrer") || "/");
   }
 };
+
+module.exports.edit = async (req, res) => {
+  try {
+    const find = {
+      deleted: "false",
+      _id: req.params.id, //id là duy nhất = 1
+    };
+
+    const product = await Product.findOne(find);
+
+    res.render("admin/pages/products/edit", {
+      pageTitle: "Thêm sản phẩm",
+      product: product,
+    });
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/products`, error);
+  }
+};
+// edit product patch
+module.exports.editPatch = async (req, res) => {
+  try {
+    const productId = req.params.id; // Lấy ID sản phẩm từ URL
+
+    // Kiểm tra tên sản phẩm
+    if (!req.body.title || req.body.title.length < 5) {
+      req.flash("error", "Tên sản phẩm phải có ít nhất 5 ký tự!");
+      return res.redirect(req.get("Referrer") || "/");
+    }
+
+    // Chuyển đổi các trường số
+    req.body.price = parseInt(req.body.price, 10);
+    req.body.stock = parseInt(req.body.stock, 10);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage, 10);
+    req.body.position = parseInt(req.body.position, 10);
+
+    // Xử lý file upload (nếu có)
+    if (req.file) {
+      req.body.thumbnail = `/uploads/${req.file.filename}`;
+    }
+
+    // Cập nhật sản phẩm trong database
+    await Product.updateOne(
+      { _id: productId }, // Điều kiện tìm kiếm
+      { $set: req.body }, // Dữ liệu cập nhật
+    );
+
+    // Thông báo thành công và chuyển hướng
+    req.flash("success", "Sửa sản phẩm thành công!");
+    res.redirect(`${systemConfig.prefixAdmin}/products`);
+  } catch (error) {
+    req.flash("error", "Lỗi không thể sửa sản phẩm!", error);
+    res.status(500).redirect(req.get("Referrer") || "/");
+  }
+};
