@@ -1,7 +1,11 @@
 extends ../../layouts/default.pug
+include ../../mixins/alert.pug
 
 block main
+  +alert-err(5000) 
+
   h1(class="mb-4") Thêm sản phẩm
+
 
   form(
     action=`${prefixAdmin}/products/create`

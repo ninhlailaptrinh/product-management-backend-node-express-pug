@@ -155,7 +155,7 @@ if (uploadImage) {
 }
 
 const clearImagePreview = document.querySelector(".image-preview");
-if (uploadImagePreview.src === uploadImagePreview.src) {
+if (clearImagePreview) {
   clearImagePreview.addEventListener("click", () => {
     uploadImagePreview.src = "";
     uploadImagePreview.style.display = "none";

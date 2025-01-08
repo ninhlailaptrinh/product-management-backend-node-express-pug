@@ -1,4 +1,4 @@
-mixin alert(time)
+mixin alert-ok(time)
   if message && message.length > 0
     div(
       class="alert alert-success"
@@ -12,3 +12,14 @@ mixin alert(time)
       show-alert
       data-time=time
     ) #{messages.error}
+
+mixin alert-err(time)
+  if messages && messages.error
+    - const errors = Array.isArray(messages.error) ? messages.error : [messages.error];
+    each error in errors
+      div(
+        class="alert alert-danger"
+        show-alert
+        data-time=time
+        close-alert
+      ) #{error}

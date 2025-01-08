@@ -4,7 +4,7 @@ const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 const { request } = require("express");
 const systemConfig = require("../../config/system");
-
+console.log(request);
 module.exports.index = async (req, res) => {
   // Lấy trạng thái lọc từ helper
   const filterStatus = filterStatusHelper(req.query);
@@ -68,7 +68,7 @@ module.exports.changeStatus = async (req, res) => {
     req.flash("success", "Cập nhật trạng thái thành công!");
     res.redirect(req.get("Referrer") || "/");
   } catch (error) {
-    req.flash("error", "Cập nhật trạng thái thất bại!");
+    req.flash("error", "Cập nhật trạng thái thất bại!", error);
     res.redirect(req.get("Referrer") || "/");
   }
 };
@@ -130,11 +130,13 @@ module.exports.createItem = async (req, res) => {
 // Xử lý tạo sản phẩm
 module.exports.createPost = async (req, res) => {
   try {
-    console.log(req.file);
+    // Kiểm tra tên sản phẩm
+
     // Chuyển đổi các trường số
     req.body.price = parseInt(req.body.price, 10);
     req.body.stock = parseInt(req.body.stock, 10);
     req.body.discountPercentage = parseInt(req.body.discountPercentage, 10);
+
     // Xác định vị trí (position)
     if (req.body.position == "") {
       const countProducts = await Product.countDocuments();
@@ -143,17 +145,21 @@ module.exports.createPost = async (req, res) => {
       req.body.position = parseInt(req.body.position, 10);
     }
 
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
+    // Xử lý file upload (nếu có)
+    if (req.file) {
+      req.body.thumbnail = `/uploads/${req.file.filename}`;
+    }
 
     // Lưu sản phẩm vào database
     const product = new Product(req.body);
     await product.save();
 
+    // Thông báo thành công
+    req.flash("success", "Thêm sản phẩm thành công!");
     res.redirect(req.get("Referrer") || `${systemConfig.prefixAdmin}/products`);
   } catch (error) {
-    console.error("Lỗi khi tạo sản phẩm:", error); // Thêm xử lý lỗi
-    res.status(500).send("Lỗi server"); // Trả về thông báo lỗi
+    console.error(error);
+    req.flash("error", "Lỗi server: Không thể thêm sản phẩm!");
+    res.status(500).redirect(req.get("Referrer") || "/");
   }
 };
-
-// Sửa sản phẩm
