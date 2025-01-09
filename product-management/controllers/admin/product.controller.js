@@ -217,3 +217,23 @@ module.exports.editPatch = async (req, res) => {
     res.status(500).redirect(req.get("Referrer") || "/");
   }
 };
+
+// Trang chi tiết sản phẩm
+module.exports.detail = async (req, res) => {
+  try {
+    const find = {
+      deleted: "false",
+      _id: req.params.id,
+    };
+
+    const product = await Product.findOne(find);
+
+    res.render("admin/pages/products/detail", {
+      pageTitle: "Thông tin sản phẩm",
+      product: product,
+    });
+    console.log(find);
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/products`, error);
+  }
+};
