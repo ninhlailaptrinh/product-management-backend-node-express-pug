@@ -18,9 +18,9 @@ const app = express();
 const port = process.env.PORT;
 
 // add pug
-app.set("views", "./views");
+app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
-app.use(express.static("public"));
+app.use(express.static(`${__dirname}/public`));
 
 //App local variable
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
