@@ -120,13 +120,6 @@ module.exports.deleteItem = async (req, res) => {
   res.redirect(req.get("Referrer") || "/");
 };
 
-module.exports.deleteDetail = async (req, res) => {
-  const id = req.params.id;
-  await Product.updateOne({ _id: id }, { deleted: true, deleteAt: new Date() });
-  req.flash("success", "Xóa sản phẩm thành công");
-  res.redirect(req.get("Referrer") || "/");
-};
-
 // Hiển thị form tạo sản phẩm
 module.exports.createItem = async (req, res) => {
   res.render("admin/pages/products/create", {

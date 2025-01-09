@@ -19,3 +19,24 @@ module.exports.index = async (req, res) => {
     products: newProducts,
   });
 };
+
+// Trang chi tiết sản phẩm
+module.exports.detail = async (req, res) => {
+  try {
+    const find = {
+      deleted: "false",
+      slug: req.params.slug,
+      status: "active",
+    };
+
+    const product = await Product.findOne(find);
+
+    res.render("client/pages/products/detail", {
+      pageTitle: "Thông tin sản phẩm",
+      product: product,
+    });
+    console.log(find);
+  } catch (error) {
+    res.redirect(`/products`, error);
+  }
+};
