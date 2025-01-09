@@ -36,7 +36,25 @@ block main
                   li.list-group-item
                     strong Ngày xóa: 
                     span #{product.deletedAt.toLocaleDateString()}
+              //- Nút chỉnh sửa và xóa sản phẩm
+              .mt-3
+                a(href=`${prefixAdmin}/products/edit/${product.id}` class="btn btn-warning btn-sm mr-2") Sửa
+                a(
+                  href="#"
+                  class="btn btn-danger btn-sm"
+                  data-id=product.id
+                  button-delete
+                ) Xóa
     else
       .alert.alert-warning Sản phẩm không tồn tại hoặc đã bị xóa.
+
+  //- Form ẩn để xử lý xóa
+  form(
+    id="form-delete-status"
+    method="POST"
+    action=""
+    data-path="/admin/products/delete"
+    style="display: none;"
+  )
 
   script(src="/admin/js/product.js")
